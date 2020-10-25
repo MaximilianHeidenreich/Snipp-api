@@ -1,0 +1,27 @@
+{
+  "name": "snipp-api",
+  "version": "1.0.0",
+  "repository": "",
+  "author": "MaximilianHeidenreich <github@maximilian-heidenreich.de>",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint -c .eslintrc.js src",
+    "start": "node src/index.js",
+    "build": "",
+    "prepare": "yarn run build",
+    "prepublishOnly": "yarn run lint",
+    "preversion": "yarn run lint",
+    "version": "yarn run lint && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "pg": "^8.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.12.0"
+  }
+}
