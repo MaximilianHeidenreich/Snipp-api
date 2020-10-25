@@ -4,7 +4,7 @@
   "repository": "",
   "author": "MaximilianHeidenreich <github@maximilian-heidenreich.de>",
   "main": "index.js",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "engines": {
     "node": "12.x"
   },
