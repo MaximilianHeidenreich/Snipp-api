@@ -1,0 +1,114 @@
+swagger: "2.0"
+info:
+  description: "Backend API for Snipp frontend."
+  version: "1.0.0"
+  title: "Snipp API"
+  contact:
+    email: "github@maximilian-heidenreich.de"
+  license:
+    name: "MIT"
+    url: "https://opensource.org/licenses/MIT"
+host: "api.snipp.maximilian-heidenreich.de"
+basePath: "/v1"
+tags: 
+  - 
+    name: "snipp"
+    description: "Manage Snipps"
+    externalDocs: 
+      description: "Find out more"
+      url: "http://swagger.io"
+schemes: 
+  - "https"
+  - "http"
+paths: 
+  /snipp: 
+    get: 
+      tags: 
+        - "snipp"
+      summary: "Returns all Snipp's"
+      description: ""
+      operationId: "getSnipps"
+      consumes: 
+        - "application/json"
+      produces: 
+        - "application/json"
+      responses: 
+        "200": 
+          description: "OK"
+    post: 
+      tags: 
+        - "snipp"
+      summary: "Creates a new Snipp"
+      description: ""
+      operationId: "createSnipp"
+      consumes: 
+        - "application/json"
+      produces: 
+        - "application/json"
+      parameters: 
+        -
+          in: "body"
+          name: "body"
+          description: "order placed for purchasing the pet"
+          required: true
+          schema: 
+            $ref: "#/definitions/SnippCreate"
+      responses: 
+        "200": 
+          description: "OK"
+  /snipp/:snippID: 
+    get: 
+      tags: 
+        - "snipp"
+      summary: "Returns a Snipp identified by specified ID"
+      description: ""
+      operationId: "getSnipp"
+      consumes: 
+        - "application/json"
+      produces: 
+        - "application/json"
+      responses: 
+        "200": 
+          description: "OK"
+    post: 
+      tags: 
+        - "snipp"
+      summary: "Updates a Snipp identified by specified ID"
+      description: ""
+      operationId: "updateSNipp"
+      consumes: 
+        - "application/json"
+      produces: 
+        - "application/json"
+      parameters: 
+        -
+          in: "body"
+          name: "body"
+          description: "order placed for purchasing the pet"
+          required: true
+          schema: 
+            $ref: "#/definitions/SnippUpdate"
+      responses: 
+        "200": 
+          description: "OK"
+definitions: 
+    SnippCreate: 
+      type: "object"
+      properties: 
+        name: 
+          type: "string"
+        lang: 
+          type: "string"
+        ownerPin: 
+          type: "string"
+        content: 
+          type: "string"
+    SnippUpdate: 
+      type: "object"
+      properties: 
+        name: 
+          type: "string"
+        lang: 
+          type: "string"
+        content: 
+          type: "string"

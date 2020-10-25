@@ -1,8 +1,9 @@
+const YAML = require('yamljs')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const swaggerUi = require('swagger-ui-express')
-const swaggerDocument = require('./swagger.json')
+const swaggerDocument = YAML.load(`${__dirname}/swagger.yaml`)
 const { Pool } = require('pg')
 const { generateId } = require('./utils')
 
