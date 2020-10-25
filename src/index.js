@@ -3,7 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const rateLimit = require('express-rate-limit')
-const { body, check } = require('express-validator')
+const { body, validationResult } = require('express-validator')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = YAML.load(`${__dirname}/swagger.yaml`)
 const { Pool } = require('pg')
@@ -49,11 +49,11 @@ const getSnipps = async (req, res) => {
         const client = await pool.connect()
         const result = await client.query('SELECT * FROM snipps')
         const results = { 'results': (result) ? result.rows : null}
-        res.json({ err: false, data: results })
+        res.json({ data: results })
         client.release()
     } catch (err) {
         console.error(err)
-        res.json({ err: true, data: err })
+        res.status(400).json({ err: err })
     }
 }
 
@@ -68,11 +68,11 @@ const addSnipp = async (req, res) => {
             req.body.ownerPin,
             req.body.content
         ])
-        res.json({ err: false, data: { snippID: id } })
+        res.json({ data: { snippID: id } })
         client.release()
     } catch (err) {
         console.error(err)
-        res.json({ err: true, data: err })
+        res.status(400).json({ err: err })
     }
 }
 
@@ -82,17 +82,24 @@ const getSnipp = async (req, res) => {
         const client = await pool.connect()
         const result = await client.query('SELECT * FROM snipps WHERE ID=\'' + req.params.snippID + '\'')
         const results = { 'results': (result) ? result.rows[0] : null}
-        res.json({ err: false, data: results })
+        res.json({ data: results })
         client.release()
     } catch (err) {
         console.error(err)
-        res.json({ err: true, data: err })
+        res.status(400).json({ err: err })
     }
 }
 
 // POST /snipp/:snippID
 // TODO: Implement
 const updateSnipp = async (req, res) => {
+
+    // FValidation errors.
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+
     try {
         const client = await pool.connect()
         const result = await client.query('UPDATE snipps SET name=$1, lang=$2, content=$3 WHERE ID=\'' + req.params.snippID + '\'', [
@@ -100,21 +107,32 @@ const updateSnipp = async (req, res) => {
             req.body.lang,
             req.body.content
         ])
-        res.json({ err: false, data: result })
+        res.json({ data: result })
         client.release()
     } catch (err) {
         console.error(err)
-        res.json({ err: true, data: err })
+        res.status(400).json({ err: err })
     }
 }
 
 // Add routes.
 app.route('/v1/snipp')
     .get(getSnippsLimiter, getSnipps)
-    .post(addSnippLimiter, addSnipp)
+    .post(addSnippLimiter, [
+        // Max lengths.
+        body('name').isLength({ max: 15 }),
+        body('lang').isLength({ max: 15 }),
+        body('ownerPin').isLength({ max: 9 }),
+        body('content').isLength({ max: 10000 })
+    ], addSnipp)
 app.route('/v1/snipp/:snippID')
     .get(getSnippLimiter, getSnipp)
-    .post(updateSnippLimiter, updateSnipp)
+    .post(updateSnippLimiter, [
+        // Max lengths.
+        body('name').isLength({ max: 15 }),
+        body('lang').isLength({ max: 15 }),
+        body('content').isLength({ max: 10000 })
+    ], updateSnipp)
 
 // Start server.
 const PORT = process.env.PORT || 5000
