@@ -1,51 +1,35 @@
 {
     "openapi": "3.0.3",
     "info": {
-      "title": "Snipp API",
-      "description": "API for Snipp frontend.",
-      "version": "1.0.0"
+        "title": "Snipp API",
+        "description": "API for Snipp frontend.",
+        "version": "1.0.0",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
     },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
     "paths": {
-        "paths": {
-            "/posts": {
-                "get": {
-                    "description": "List all posts",
-                    "responses": {
-                        "200": {
-                            "description": "Successfully fetched all posts from JSONPlaceholder",
-                            "content": {
-                                "application/json": {
-                                    "schema": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "properties": {
-                                                "userId": {
-                                                "type": "number"
-                                                },
-                                                "id": {
-                                                "type": "number"
-                                                },
-                                                "title": {
-                                                "type": "string"
-                                                },
-                                                "body": {
-                                                "type": "string"
-                                                }
-                                            },
-                                            "example": {
-                                                "userId": 1,
-                                                "id": 1,
-                                                "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-                                                "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+        "/api/v1/snipp": {
+            "get": {
+              "summary": "Get all snippets.",
+              "responses": {
+                "200": {
+                  "description": "OK"
                 }
+              }
             }
         }
     }

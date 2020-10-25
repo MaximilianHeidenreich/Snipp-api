@@ -19,7 +19,7 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors())
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 
 // GET /snipp
@@ -40,7 +40,7 @@ const getSnipps = async (req, res) => {
 const addSnipp = async (req, res) => {
     try {
         const client = await pool.connect()
-        const result = await client.query('INSERT INTO snipps (ID, name, lang, ownerPin, content) VALUES  ($1, $2, $3, $4, $5)', [
+        const result = await client.query('INSERT INTO snipps (ID, name, lang, ownerPin, content) VALUES  ("$1", "$2", "$3", "$4", "$5")', [
             generateId(6),
             req.body.name,
             req.body.lang,
@@ -70,12 +70,17 @@ const getSnipp = async (req, res) => {
 }
 
 // POST /snipp/:snippID
+// TODO: Implement
 const updateSnipp = async (req, res) => {
     try {
         const client = await pool.connect()
-        const result = await client.query('SELECT * FROM snipps')
-        const results = { 'results': (result) ? result.rows : null}
-        res.json({ err: false, data: results })
+        const result = await client.query('UPDATE snipp SET name="$2", lang="$3", content="$4" WHERE ID="$1"', [
+            req.params.snippID,
+            req.body.name,
+            req.body.lang,
+            req.body.content,
+        ])
+        res.json({ err: false, data: result })
         client.release()
     } catch (err) {
         console.error(err)
@@ -84,10 +89,10 @@ const updateSnipp = async (req, res) => {
 }
 
 // Add routes.
-app.route('/snipp')
+app.route('/v1/snipp')
     .get(getSnipps)
     .post(addSnipp)
-app.route('/snipp/:snippID')
+app.route('/v1/snipp/:snippID')
     .get(getSnipp)
     .post(updateSnipp)
 
