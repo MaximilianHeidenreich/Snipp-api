@@ -73,7 +73,7 @@ const getSnipp = async (req, res) => {
 const updateSnipp = async (req, res) => {
     try {
         const client = await pool.connect()
-        const result = await client.query('UPDATE snipp SET name=\'$1\', lang=\'$2\', content=\'$3\' WHERE ID=\'' + req.params.snippID + '\'', [
+        const result = await client.query('UPDATE snipp SET name=$1, lang=$2, content=$3 WHERE ID=\'' + req.params.snippID + '\'', [
             req.body.name,
             req.body.lang,
             req.body.content
