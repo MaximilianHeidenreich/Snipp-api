@@ -1,5 +1,5 @@
 CREATE TABLE snipps (
-    ID uuid PRIMARY KEY,
+    id uuid PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     lang VARCHAR(255) NOT NULL,
     ownerPin VARCHAR(255) NOT NULL,

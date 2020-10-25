@@ -40,7 +40,7 @@ const getSnipps = async (req, res) => {
 const addSnipp = async (req, res) => {
     try {
         const client = await pool.connect()
-        const result = await client.query('INSERT INTO snipps (ID, name, lang, ownerPin, content) VALUES  ("$1", "$2", "$3", "$4", "$5")', [
+        const result = await client.query('INSERT INTO snipps (id, name, lang, ownerPin, content) VALUES  ("$1", "$2", "$3", "$4", "$5")', [
             generateId(6),
             req.body.name,
             req.body.lang,
@@ -59,7 +59,7 @@ const addSnipp = async (req, res) => {
 const getSnipp = async (req, res) => {
     try {
         const client = await pool.connect()
-        const result = await client.query('SELECT * FROM snipps WHERE ID="$1"', [req.params.snippID])
+        const result = await client.query('SELECT * FROM snipps WHERE id="$1"', [req.params.snippID])
         const results = { 'results': (result) ? result.rows[0] : null}
         res.json({ err: false, data: results })
         client.release()
@@ -74,7 +74,7 @@ const getSnipp = async (req, res) => {
 const updateSnipp = async (req, res) => {
     try {
         const client = await pool.connect()
-        const result = await client.query('UPDATE snipp SET name="$2", lang="$3", content="$4" WHERE ID="$1"', [
+        const result = await client.query('UPDATE snipp SET name="$2", lang="$3", content="$4" WHERE id="$1"', [
             req.params.snippID,
             req.body.name,
             req.body.lang,
