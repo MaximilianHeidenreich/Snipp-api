@@ -107,12 +107,21 @@ const updateSnipp = async (req, res) => {
 
     try {
         const client = await pool.connect()
-        const result = await client.query('UPDATE snipps SET name=$1, lang=$2, content=$3 WHERE ID=\'' + req.params.snippID + '\'', [
-            req.body.name,
-            req.body.lang,
-            req.body.content
-        ])
-        res.json({ data: result })
+        var result = await client.query('SELECT * FROM snipps WHERE ID=\'' + req.params.snippID + '\'')
+        var row = (result) ? result.rows[0] : null
+        
+        if (req.body.row.ownerPin === row.ownerPin) {
+            result = await client.query('UPDATE snipps SET name=$1, lang=$2, content=$3 WHERE ID=\'' + req.params.snippID + '\'', [
+                req.body.name,
+                req.body.lang,
+                req.body.content
+            ])
+            res.json({ data: result })
+        }
+        else {
+            res.status(401).json({ err: 'Invalid ownerPin!' })
+        }
+        
         client.release()
     } catch (err) {
         console.error(err)
