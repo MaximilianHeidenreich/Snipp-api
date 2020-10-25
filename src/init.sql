@@ -6,5 +6,5 @@ CREATE TABLE snipps (
     content TEXT NOT NULL
 );
 
-INSERT INTO snipps (ID, name, lang, ownerPin, content)
-VALUES  ('abcDef', 'Test SNipp', 'js', '0000-0000', 'Geklo World');
+/*INSERT INTO snipps (ID, name, lang, ownerPin, content)
+VALUES  ('abcDef', 'Test SNipp', 'js', '0000-0000', 'Geklo World');*/
