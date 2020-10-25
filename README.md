@@ -31,7 +31,7 @@
     <a href="https://github.com/MaximilianHeidenreich/Snipp-api"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="snipp.maximilian-heidenreich.de">View Demo</a>
+    <a href="https://snipp.maximilian-heidenreich.de">View Demo</a>
     ·
     <a href="https://github.com/MaximilianHeidenreich/Snipp-api/issues">Report Bug</a>
     ·
