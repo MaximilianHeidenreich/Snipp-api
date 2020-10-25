@@ -2,6 +2,8 @@ const YAML = require('yamljs')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const rateLimit = require('express-rate-limit')
+const { body, check } = require('express-validator')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = YAML.load(`${__dirname}/swagger.yaml`)
 const { Pool } = require('pg')
@@ -19,8 +21,26 @@ const pool = new Pool({
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(cors())
+app.use(cors())  
 app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
+// Define rate limits.
+const getSnippsLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 2,
+})
+const getSnippLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 30,
+})
+const addSnippLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 20,
+})
+const updateSnippLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 30,
+})
 
 
 // GET /snipp
@@ -89,11 +109,11 @@ const updateSnipp = async (req, res) => {
 
 // Add routes.
 app.route('/v1/snipp')
-    .get(getSnipps)
-    .post(addSnipp)
+    .get(getSnippsLimiter, getSnipps)
+    .post(addSnippLimiter, addSnipp)
 app.route('/v1/snipp/:snippID')
-    .get(getSnipp)
-    .post(updateSnipp)
+    .get(getSnippLimiter, getSnipp)
+    .post(updateSnippLimiter, updateSnipp)
 
 // Start server.
 const PORT = process.env.PORT || 5000
