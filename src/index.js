@@ -61,13 +61,14 @@ const getSnipps = async (req, res) => {
 const addSnipp = async (req, res) => {
     try {
         const client = await pool.connect()
-        const result = await client.query('INSERT INTO snipps (ID, name, lang, ownerPin, content) VALUES  (\'' + generateId(6) + '\', $1, $2, $3, $4)', [
+        const id = generateId(6)
+        const result = await client.query('INSERT INTO snipps (ID, name, lang, ownerPin, content) VALUES  (\'' + id + '\', $1, $2, $3, $4)', [
             req.body.name,
             req.body.lang,
             req.body.ownerPin,
             req.body.content
         ])
-        res.json({ err: false, data: result })
+        res.json({ err: false, data: { snippID: id } })
         client.release()
     } catch (err) {
         console.error(err)
