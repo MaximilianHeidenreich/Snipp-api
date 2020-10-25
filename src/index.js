@@ -47,9 +47,8 @@ const updateSnippLimiter = rateLimit({
 const getSnipps = async (req, res) => {
     try {
         const client = await pool.connect()
-        const result = await client.query('SELECT * FROM snipps')
-        const results = { 'results': (result) ? result.rows : null}
-        res.json({ data: results })
+        const result = await client.query('SELECT id FROM snipps')
+        res.json({ data: (result) ? result.rows : null })
         client.release()
     } catch (err) {
         console.error(err)
@@ -81,8 +80,14 @@ const getSnipp = async (req, res) => {
     try {
         const client = await pool.connect()
         const result = await client.query('SELECT * FROM snipps WHERE ID=\'' + req.params.snippID + '\'')
-        const results = { 'results': (result) ? result.rows[0] : null}
-        res.json({ data: results })
+        const row = (result) ? result.rows[0] : null
+        res.json({ data: {
+            id: row.ID,
+            name: row.name,
+            lang: row.lang,
+            content: row.content,
+            isOwner: row.ownerPin === req.query.ownerPin ? true : false
+        } })
         client.release()
     } catch (err) {
         console.error(err)
