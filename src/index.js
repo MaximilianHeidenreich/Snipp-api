@@ -52,7 +52,7 @@ const getSnipps = async (req, res) => {
         client.release()
     } catch (err) {
         console.error(err)
-        res.status(400).json({ err: err })
+        res.status(500).json({ err: err })
     }
 }
 
@@ -71,7 +71,7 @@ const addSnipp = async (req, res) => {
         client.release()
     } catch (err) {
         console.error(err)
-        res.status(400).json({ err: err })
+        res.status(500).json({ err: err })
     }
 }
 
@@ -91,7 +91,7 @@ const getSnipp = async (req, res) => {
         client.release()
     } catch (err) {
         console.error(err)
-        res.status(400).json({ err: err })
+        res.status(500).json({ err: err })
     }
 }
 
@@ -125,7 +125,7 @@ const updateSnipp = async (req, res) => {
         client.release()
     } catch (err) {
         console.error(err)
-        res.status(400).json({ err: err })
+        res.status(500).json({ err: err })
     }
 }
 
