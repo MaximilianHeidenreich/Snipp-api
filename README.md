@@ -20,7 +20,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/MaximilianHeidenreich/Snipp-api">
-    <img src="https://via.placeholder.com/150" alt="Logo" width="80" height="80">
+    <img src="https://www.flaticon.com/svg/static/icons/svg/3408/3408479.svg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Snipp API</h3>
