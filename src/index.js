@@ -77,6 +77,7 @@ const addSnipp = async (req, res) => {
 
 // GET /snipp/:snippID
 const getSnipp = async (req, res) => {
+    console.log(req.header('owner-pin'))
     try {
         const client = await pool.connect()
         const result = await client.query('SELECT * FROM snipps WHERE ID=\'' + req.params.snippID + '\'')
