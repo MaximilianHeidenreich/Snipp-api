@@ -86,7 +86,7 @@ const getSnipp = async (req, res) => {
             name: row.name,
             lang: row.lang,
             content: row.content,
-            isOwner: row.ownerPin === req.query.ownerPin ? true : false
+            isOwner: row.ownerpin === req.query.ownerPin ? true : false
         } })
         client.release()
     } catch (err) {
