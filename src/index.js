@@ -82,7 +82,7 @@ const getSnipp = async (req, res) => {
         const result = await client.query('SELECT * FROM snipps WHERE ID=\'' + req.params.snippID + '\'')
         const row = (result) ? result.rows[0] : null
         res.json({ data: {
-            id: row.ID,
+            id: row.id,
             name: row.name,
             lang: row.lang,
             content: row.content,
@@ -110,7 +110,7 @@ const updateSnipp = async (req, res) => {
         var result = await client.query('SELECT * FROM snipps WHERE ID=\'' + req.params.snippID + '\'')
         var row = (result) ? result.rows[0] : null
         
-        if (req.body.ownerPin === row.ownerPin) {
+        if (req.body.ownerPin === row.ownerpin) {
             result = await client.query('UPDATE snipps SET name=$1, lang=$2, content=$3 WHERE ID=\'' + req.params.snippID + '\'', [
                 req.body.name,
                 req.body.lang,
