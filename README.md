@@ -31,7 +31,7 @@
     <a href="https://github.com/MaximilianHeidenreich/Snipp-api"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://snipp.maximilian-heidenreich.de">View Demo</a>
+    <a href="https://snipp.xyz">View Demo</a>
     ·
     <a href="https://github.com/MaximilianHeidenreich/Snipp-api/issues">Report Bug</a>
     ·
@@ -154,9 +154,9 @@ Project Link: [https://github.com/MaximilianHeidenreich/Snipp-api](https://githu
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/MaximilianHeidenreich/Snipp-api.svg?style=flat-square
 [contributors-url]: https://github.com/MaximilianHeidenreich/Snipp-api/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/MaximilianHeidenreich/Snipp-api
+[forks-shield]: https://img.shields.io/github/forks/MaximilianHeidenreich/Snipp-api?style=flat-square
 [forks-url]: https://github.com/MaximilianHeidenreich/Snipp-api/network
-[stars-shield]: https://img.shields.io/github/stars/MaximilianHeidenreich/Snipp-api
+[stars-shield]: https://img.shields.io/github/stars/MaximilianHeidenreich/Snipp-api?style=flat-square
 [stars-url]: https://github.com/MaximilianHeidenreich/Snipp-api/stargazers
 [issues-shield]: https://img.shields.io/github/issues/MaximilianHeidenreich/Snipp-api?style=flat-square
 [issues-url]: https://github.com/MaximilianHeidenreich/Snipp-api/issues
