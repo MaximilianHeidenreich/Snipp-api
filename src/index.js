@@ -134,7 +134,7 @@ app.route('/v1/snipp')
     .get(getSnippsLimiter, getSnipps)
     .post(addSnippLimiter, [
         // Max lengths.
-        body('name').isLength({ max: 15 }),
+        body('name').isLength({ max: 20 }),
         body('lang').isLength({ max: 15 }),
         body('ownerPin').isLength({ max: 9 }),
         body('content').isLength({ max: 10000 })
@@ -143,7 +143,7 @@ app.route('/v1/snipp/:snippID')
     .get(getSnippLimiter, getSnipp)
     .post(updateSnippLimiter, [
         // Max lengths.
-        body('name').isLength({ max: 15 }),
+        body('name').isLength({ max: 20 }),
         body('lang').isLength({ max: 15 }),
         body('content').isLength({ max: 10000 })
     ], updateSnipp)
